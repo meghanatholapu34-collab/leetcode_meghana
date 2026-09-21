@@ -1,0 +1,36 @@
+import random
+
+class RandomizedSet:
+
+    def __init__(self):
+        self.arr = []
+        self.pos = {}
+
+    def insert(self, val: int) -> bool:
+        if val in self.pos:
+            return False
+
+        self.pos[val] = len(self.arr)
+        self.arr.append(val)
+
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.pos:
+            return False
+
+        index = self.pos[val]
+        last = self.arr[-1]
+
+        # Last element ni remove cheyyalsina element place lo pettali
+        self.arr[index] = last
+        self.pos[last] = index
+
+        # Last element remove
+        self.arr.pop()
+        del self.pos[val]
+
+        return True
+
+    def getRandom(self) -> int:
+        return random.choice(self.arr)
